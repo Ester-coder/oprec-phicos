@@ -6,6 +6,15 @@ class M_portofolio extends CI_Model {
 	public function insert($data)
 	{
 		$this->db->insert('portofolio', $data);
+	}
+
+	public function selectById($id)
+	{
+		$this->db->select();
+		$this->db->from('portofolio');
+		$this->db->where('id_user', $id);
+		$query = $this->db->get();
+		return $query->result_array();
 	}	
 	public function update_nama_gambar($file)
 	{

@@ -5,6 +5,9 @@ class Pendaftaran extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if(isset($this->session->email)&&isset($this->session->id_user)){
+			redirect('Biodata');
+		}
 		$this->load->model('M_pendaftaran','mp');
 		$this->load->library('email');
 	}

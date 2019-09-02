@@ -5,12 +5,16 @@ class Portofolio extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if(!isset($this->session->email)&&!isset($this->session->id_user)){
+			redirect('Login');
+		}
 		$this->load->model('M_portofolio', 'mpo');
 	}
 	public function index()
 	{
 		$data['title'] = "Portofolio";
-		$data['page'] = "form_portofolio";
+		$data['page'] = "portofolio";
+		$data['portofolio'] = $this->mpo->selectById($this->session->id_user);
 		
 		$this->load->view('template', $data, FALSE);
 
@@ -18,7 +22,7 @@ class Portofolio extends CI_Controller {
 
 	public function form()
 	{
-		//var_dump($_FILES);exit();
+		
 		$data['id_portofolio'] = NULL;
 		$data['nama_projek'] = $this->input->post('nama_projek');
 		$data['deskripsi_projek'] = $this->input->post('deskripsi_projek');
@@ -29,7 +33,7 @@ class Portofolio extends CI_Controller {
 		$this->mpo->insert($data);
 		$file->gambar_projek = $this->upload_gambar();
 		$file->id = $this->db->insert_id();
-		//var_dump($file);exit();
+		
 		$this->mpo->update_nama_gambar($file);
 		
 		redirect('Portofolio');

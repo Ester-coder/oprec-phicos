@@ -5,6 +5,9 @@ class Biodata extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if(!isset($this->session->email)&&!isset($this->session->id_user)){
+			redirect('Login');
+		}
 		$this->load->model('M_biodata', 'mb');
 	}
 	public function index()
