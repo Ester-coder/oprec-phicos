@@ -12,6 +12,15 @@ class M_portofolio extends CI_Model {
 	{
 		$this->db->select();
 		$this->db->from('portofolio');
+		$this->db->where('id_portofolio', $id);
+		$this->db->limit(1);
+		$query = $this->db->get();
+		return $query->row();
+	}
+	public function select($id)
+	{
+		$this->db->select();
+		$this->db->from('portofolio');
 		$this->db->where('id_user', $id);
 		$query = $this->db->get();
 		return $query->result_array();

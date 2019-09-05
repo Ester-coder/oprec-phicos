@@ -14,7 +14,7 @@ class Portofolio extends CI_Controller {
 	{
 		$data['title'] = "Portofolio";
 		$data['page'] = "portofolio";
-		$data['portofolio'] = $this->mpo->selectById($this->session->id_user);
+		$data['portofolio'] = $this->mpo->select($this->session->id_user);
 		
 		$this->load->view('template', $data, FALSE);
 
@@ -22,21 +22,28 @@ class Portofolio extends CI_Controller {
 
 	public function form()
 	{
-		
-		$data['id_portofolio'] = NULL;
-		$data['nama_projek'] = $this->input->post('nama_projek');
-		$data['deskripsi_projek'] = $this->input->post('deskripsi_projek');
-		$data['link'] = $this->input->post('link');
-		$data['gambar_projek'] = $_FILES['gambar_projek']['name'];
-		$data['id_user'] = $this->input->post('id_user');
+		$this->validasi_form();
+		if ($this->form_validation->run() == FALSE) {
+			$data['title'] = "Form Portofolio";
+			$data['page'] = "form_portofolio";
 
-		$this->mpo->insert($data);
-		$file->gambar_projek = $this->upload_gambar();
-		$file->id = $this->db->insert_id();
-		
-		$this->mpo->update_nama_gambar($file);
-		
-		redirect('Portofolio');
+			$this->load->view('template', $data, FALSE);
+		} else {
+			$data['id_portofolio'] = NULL;
+			$data['nama_projek'] = $this->input->post('nama_projek');
+			$data['deskripsi_projek'] = $this->input->post('deskripsi_projek');
+			$data['link'] = $this->input->post('link');
+			$data['gambar_projek'] = $_FILES['gambar_projek']['name'];
+			$data['id_user'] = $this->input->post('id_user');
+
+			$this->mpo->insert($data);
+			$file->gambar_projek = $this->upload_gambar();
+			$file->id = $this->db->insert_id();
+
+			$this->mpo->update_nama_gambar($file);
+
+			redirect('Portofolio');
+		}
 
 	}
 
@@ -55,6 +62,22 @@ class Portofolio extends CI_Controller {
    		}
 
    		return "default.png";
+   	}
+
+   	public function ubah($id)
+   	{
+   		$data['title'] = "Edit Portofolio";
+   		$data['page'] = "edit_portofolio";
+   		$data['value'] = $this->mpo->selectById($id);
+
+   		$this->load->view('template', $data, FALSE);
+
+   	}
+
+   	public function validasi_form()
+   	{
+   		$this->form_validation->set_rules('nama_projek', 'Nama Projek', 'required');
+   		$this->form_validation->set_rules('deskripsi_projek', 'Deskripsi Projek', 'required');
    	}
 
    }

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
+            <div class="table table-bordered">
                 <form action="<?=base_url();?>Biodata/edit" method="POST">
                     <input type="hidden" name="id_user" value="<?= $biodata->id_user; ?>">
                     <div class="card-header">
