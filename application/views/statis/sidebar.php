@@ -71,12 +71,12 @@
               <span class="d-none d-md-inline-block"><?= $this->session->email; ?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-small">
-              <a class="dropdown-item" href="user-profile-lite.html">
+              <a class="dropdown-item" href="<?= base_url(); ?>Profile">
                 <i class="fa fa-user"></i> Profile</a>
-                <a class="dropdown-item" href="components-blog-posts.html">
+                <a class="dropdown-item" href="<?= base_url(); ?>Profile/ganti_password/<?=$this->session->id_user;?>">
                   <i class="fa fa-key"></i> change password</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item text-danger" href="#">
+                  <a class="dropdown-item text-danger" href="<?=base_url();?>Profile/logout">
                     <i class="material-icons text-danger">&#xE879;</i> Logout </a>
                   </div>
                 </li>

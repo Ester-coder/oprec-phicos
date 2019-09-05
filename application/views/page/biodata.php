@@ -123,7 +123,7 @@
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                                 </div>
                                 <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                                    <button class="btn btn-primary">edit</button>
+                                    <button class="btn btn-primary"><i class="fa fa-edit"></i>ubah</button>
                                 </div>
                             </div>
                         </div>

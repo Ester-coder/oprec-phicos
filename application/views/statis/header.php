@@ -4,7 +4,8 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title><?= $title; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+  <link rel="icon" href="<?= base_url(); ?>assets/images/logo/phicos-logo.png">
+
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dataTables/datatables.min.css">
   <script src="<?=base_url(); ?>assets/dataTables/datatables.min.js"></script>
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">

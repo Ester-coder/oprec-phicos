@@ -24,7 +24,14 @@ class M_portofolio extends CI_Model {
 		$this->db->where('id_user', $id);
 		$query = $this->db->get();
 		return $query->result_array();
+	}
+
+	public function update($data, $id_portofolio)
+	{
+		$this->db->where('id_portofolio', $id_portofolio);
+		$this->db->update('portofolio', $data);
 	}	
+
 	public function update_nama_gambar($file)
 	{
 		$this->db->where('id_portofolio', $file->id);

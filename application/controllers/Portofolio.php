@@ -64,6 +64,22 @@ class Portofolio extends CI_Controller {
    		return "default.png";
    	}
 
+   	private function update_gambar($id)
+   	{
+   		$config['upload_path']          = 'assets/images/portofolio/';
+   		$config['allowed_types']        = 'jpeg|jpg|png';
+   		$config['file_name']            = 'portofolio-'.$id;
+   		$config['overwrite']			= true;
+   		$config['max_size']             = 1024*2; // 2MB
+
+   		$this->load->library('upload', $config);
+   		
+   		if ($this->upload->do_upload('gambar_projek')) {
+   			return $this->upload->data("file_name");
+   		}
+   		
+   	}
+
    	public function ubah($id)
    	{
    		$data['title'] = "Edit Portofolio";
@@ -72,6 +88,34 @@ class Portofolio extends CI_Controller {
 
    		$this->load->view('template', $data, FALSE);
 
+   	}
+
+   	public function hapus($id)
+   	{
+   		$this->db->where('id_portofolio', $id);
+   		$this->db->delete('portofolio');
+   		redirect('Portofolio');
+   	}
+
+   	public function update($id)
+   	{
+   		$id_portofolio = $id;
+   		$data->nama_projek = $this->input->post('nama_projek');
+   		$data->deskripsi_projek = $this->input->post('deskripsi_projek');
+   		$data->link = $this->input->post('link');
+   		#upload gambar
+   		$FILE = $_FILES['gambar_projek'];
+   		
+   		if($FILE['name'] != NULL){
+   			$format = ['image/jpeg','image/jpg','image/png'];
+   			if(in_array($FILE['type'], $format)){
+   				$data->gambar_projek = $this->update_gambar($id_portofolio);
+   			}
+   		}
+   		$data->id_user = $this->input->post('id_user');
+   		
+   		$this->mpo->update($data, $id_portofolio);
+   		redirect('Portofolio');
    	}
 
    	public function validasi_form()

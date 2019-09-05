@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="form-example-wrap mg-t-30">
-                <form action="<?=base_url();?>Portofolio/form" method="POST" enctype="multipart/form-data">
+                <form action="<?=base_url();?>Portofolio/update/<?=$value->id_portofolio;?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id_user" value="<?=$this->session->id_user;?>">
                     <div class="cmp-tb-hd cmp-int-hd">
                         <center><h2>Form Portofolio</h2></center>
@@ -51,6 +51,7 @@
                             </div>
                             <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                 <div class="show-images" style="border: 1px solid black;">
+                                    <input type="hidden" name="show_gambar">
                                     <img src="<?=base_url();?>assets/images/portofolio/<?= $value->gambar_projek;?>" alt="gambar_projek" width="100%" height="400px">
                                 </div>
                                 <div class="nk-int-st">
