@@ -9,7 +9,6 @@ class Pendaftaran extends CI_Controller {
 			redirect('Biodata');
 		}
 		$this->load->model('M_pendaftaran','mp');
-		$this->load->library('email');
 	}
 	public function index()
 	{
@@ -27,33 +26,26 @@ class Pendaftaran extends CI_Controller {
 
 		# random password + hash
 		$pass = $this->random_password(5);
-		echo $pass;
 		$data['password'] = md5($pass);
 
 		# tambah ke database
-		$this->mp->insert($data);
+		//$this->mp->insert($data);
 
 		// konfigurasi email
-		$config = array();
-		$config['charset'] = 'utf-8';
-		$config['useragent'] = 'Codeigniter';
-		$config['protocol'] = "smtp";
-		$config['mailtype'] = "html";
-		$config['smtp_host'] = "ssl://smtp.gmail.com"; // setting smtp
-		$config['smtp_port'] = "465";
-		$config['smtp_timeout'] = "400";
-		$config['smtp_user'] = "yusufroyan93@gmail.com"; // username email
-		$config['smtp_password'] = "Aku@354313"; // pass email
-		$config['crlf'] = "\r\n";
-		$config['newline'] = "\r\n";
+		//$config = array();
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.googlemail.com'; // setting smtp
+		$config['smtp_port'] = 465;
+		$config['smtp_user'] = 'yusufroyan93@gmail.com'; // username email
+		$config['smtp_password'] = 'Rahasia12345'; // pass email
+		$config['mailtype'] = 'html';
+		$config['charset'] = 'iso-8859-1';
 		$config['wordwrap'] = TRUE;
-		$config['smtp_crypto'] = "SSL";
-		$config['wrapchars'] = "80";
-		$config['mailpath'] = '/usr/sbin/sendmail';
-		
-		$this->email->initialize($config);
 
-		$this->email->from($config['smtp_user']);
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+
+		$this->email->from($config['smtp_user'],'Phicos');
 		$this->email->to($data['email']);
 		$this->email->subject("Verifikasi Akun");
 		$this->email->message("
@@ -63,7 +55,7 @@ class Pendaftaran extends CI_Controller {
 
 			untuk login silahkan kunjungi ".site_url('Login')."
 			");
-		
+
 		if($this->email->send()){
 			echo "Berhasil melakukan registrasi, silahkan cek email kamu";
 		}else{
